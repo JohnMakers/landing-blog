@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Blog — Wonderful Cannabis</title>
+  <meta name="description" content="Articles and tips from the Wonderful Cannabis team: product care, how-tos, and store updates.">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Google Font (optional) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="./assets/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="nav-wrap">
+    <div class="container nav">
+      <a class="brand" href="./index.html">
+        <img class="logo" src="./images/logo.jpg" alt="Wonderful Cannabis logo">
+        <span>Wonderful Cannabis</span>
+      </a>
+      <nav aria-label="Primary">
+        <ul>
+          <li><a href="./index.html">Home</a></li>
+          <li><a href="./blog.html" aria-current="page">Blog</a></li>
+          <li><a href="./styleguide.html">(Dev) Style Guide</a></li>
+        </ul>
+      </nav>
+      <div class="nav-right">
+        <button id="themeToggle" class="btn btn-secondary" aria-label="Toggle theme">Toggle theme</button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero hero-variant-b">
+      <div class="container">
+        <p class="kicker">Our writing</p>
+        <h1>Blog & Store Updates</h1>
+        <p>Care tips, gear explainers, and what’s new in the shop.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <h2>Latest posts</h2>
+        <ul class="post-list">
+          <li class="card">
+            <a class="post-preview" href="./posts/first-post.html">
+              <h3>How to Clean Your Glass the Easy Way</h3>
+              <p class="post-meta">2025-08-23 · 3 min read</p>
+              <p>Quick, low-odor steps to keep your glass sparkling using items you probably already have.</p>
+            </a>
+          </li>
+          <li class="card">
+            <a class="post-preview" href="./posts/second-post.html">
+              <h3>Choosing the Right Grinder: 3 Things to Know</h3>
+              <p class="post-meta">2025-08-23 · 2 min read</p>
+              <p>Metal vs. acrylic, number of chambers, and teeth styles—what actually matters for a consistent result.</p>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer">
+      <p>&copy; <span id="year"></span> Wonderful Cannabis. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="./assets/main.js"></script>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>
