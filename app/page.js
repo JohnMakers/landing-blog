@@ -22,7 +22,6 @@ export default function Page() {
             <About />
           </div>
         </section>
-        <div className="divider" />
 
         {/* Products: second tint */}
         <section id="products" className="section tint-b">
@@ -30,7 +29,6 @@ export default function Page() {
             <Products />
           </div>
         </section>
-        <div className="divider" />
 
         {/* Visit/Contact: third tint */}
         <section id="visit" className="section tint-c">
