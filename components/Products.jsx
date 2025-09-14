@@ -128,7 +128,7 @@ export default function Products() {
 
   return (
     <>
-      <h2 className="text-2xl md:text-3xl font-bold mb-3">Browse by Type</h2>
+      <h2 className="text-2xl md:text-3xl font-bold mb-3">Browse Products</h2>
 
       {/* Pills: wrap + center */}
       <div
@@ -238,3 +238,4 @@ export default function Products() {
     </>
   );
 }
+
