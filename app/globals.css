@@ -60,7 +60,7 @@ h2 {
   font-weight: 700;
   letter-spacing: 0.3px;
   line-height: 1.2;
-  font-size: clamp(1.375rem, 1.2vw + 0.9rem, 2rem);
+  font-size: clamp(1.375rem, 1.2vw + 1rem, 2.25rem);
   margin-bottom: 0.25rem;
 }
 
@@ -91,9 +91,21 @@ h3 {
 /* ===============  COMPONENT PRIMITIVES  =============== */
 .container { @apply mx-auto max-w-[1100px] px-6; }
 .card { @apply bg-white/5 border border-white/10 rounded-xl2 shadow-soft; }
-.btn  { @apply inline-flex items-center justify-center font-semibold rounded-full px-4 py-3 shadow-soft; }
+
+/* --- THIS CLASS IS UPGRADED --- */
+.btn  { 
+  @apply inline-flex items-center justify-center font-semibold rounded-full px-4 py-3 shadow-soft;
+  transition: all 0.3s ease; /* Adds smooth transition to hover effects */
+}
 .btn-primary { @apply bg-brand text-black hover:opacity-95; }
 .btn-secondary { @apply bg-transparent text-white border border-white/20 hover:bg-white/10; }
+
+/* --- THIS NEW RULE IS ADDED --- */
+/* This adds the brand-colored glow on hover to primary buttons */
+.btn-primary:hover {
+  box-shadow: 0 0 20px 0px rgba(45, 212, 191, 0.6);
+  opacity: 1;
+}
 
 :focus-visible { outline: 3px solid rgba(45,212,191,0.5); outline-offset: 2px; }
 
@@ -103,6 +115,8 @@ h3 {
   position: relative;
   padding-top: 3rem;   /* same as py-12 in Tailwind */
   padding-bottom: 3rem;
+  /* This adds a shadow INSIDE the top of the section, making it look like it's below the previous one */
+  box-shadow: inset 0px 12px 20px -10px rgba(0, 0, 0, 0.4);
 }
 
 /* Keep content above overlays */
@@ -161,12 +175,4 @@ h3 {
   --tint-bg:
     radial-gradient(900px 600px at 50% 120%, rgba(12, 70, 60, 0.35), transparent 60%),
     linear-gradient(180deg, rgba(7, 45, 39, 0.26), rgba(7, 45, 39, 0.16));
-}
-
-/* Soft divider between sections (nearly invisible, but helps) */
-.divider {
-  height: 1px;
-  background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,0.18), rgba(255,255,255,0));
-  margin: 6px 0;
-  opacity: 0.7;
 }
