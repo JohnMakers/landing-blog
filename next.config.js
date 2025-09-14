@@ -1,11 +1,7 @@
 /** @type {import('next').NextConfig} */
-module.exports = {
-  output: "export",          // builds static files in /out
+const nextConfig = {
+  output: "export",
   images: { unoptimized: true },
-  trailingSlash: true        // gives /blog -> /blog/index.html (nice for static hosts)
+  trailingSlash: true,
 };
-
-
 module.exports = nextConfig;
-
-
