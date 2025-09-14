@@ -9,30 +9,43 @@ export default function ContactLocation() {
 
   return (
     <>
-      <h2 className="text-2xl font-bold mb-3">Visit & Contact</h2>
+      <h2 className="text-2xl md:text-3xl font-bold mb-3">Visit & Contact</h2>
       <div className="grid md:grid-cols-[1.1fr_1fr] gap-5 items-start">
         <div className="card p-5">
           <h3 className="text-lg font-semibold mb-2">Contact Us</h3>
           <form onSubmit={handleSubmit} className="grid gap-3">
-            <label className="space-y-1">
-              <span className="text-sm text-[var(--muted)]">Name</span>
+            {/* --- FIXED LABEL/INPUT --- */}
+            <div className="space-y-1">
+              <label htmlFor="contact-name" className="text-sm text-[var(--muted)]">
+                Name
+              </label>
               <input
+                id="contact-name"
+                name="name"
                 required
                 placeholder="Your name"
                 className="w-full px-3 py-2 rounded-xl bg-white/10 border border-white/20"
               />
-            </label>
-            <label className="space-y-1">
-              <span className="text-sm text-[var(--muted)]">Email or Phone</span>
+            </div>
+            {/* --- FIXED LABEL/INPUT --- */}
+            <div className="space-y-1">
+              <label htmlFor="contact-info" className="text-sm text-[var(--muted)]">
+                Email or Phone
+              </label>
               <input
+                id="contact-info"
+                name="contact"
                 required
                 placeholder="you@example.com"
                 className="w-full px-3 py-2 rounded-xl bg-white/10 border border-white/20"
               />
-            </label>
+            </div>
+
+            {/* --- Textarea (already correct structure) --- */}
             <label className="space-y-1">
               <span className="text-sm text-[var(--muted)]">Message</span>
               <textarea
+                name="message"
                 placeholder="How can we help?"
                 className="min-h-[120px] w-full px-3 py-2 rounded-xl bg-white/10 border border-white/20"
               />
