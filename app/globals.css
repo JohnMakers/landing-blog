@@ -1,0 +1,172 @@
+@config "../tailwind.config.js";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ===============  COLORS  =============== */
+:root {
+  --fg: #f3f6f4;
+  --muted: #cfe1d8;
+}
+
+/* ===============  BASE  =============== */
+html, body { height: 100%; }
+
+body {
+  color: var(--fg);
+  /* Background (keep your image) */
+  background-image:
+    linear-gradient(180deg, rgba(15,58,47,0.60), rgba(12,47,39,0.50)),
+    url("/theme-bg.jpg");
+  background-color: #0f3a2f;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+
+  /* Typography base */
+  font-family: var(--font-body), system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+  font-size: clamp(15px, 0.35vw + 14px, 18px);
+  line-height: 1.6;
+  letter-spacing: 0.2px;
+}
+
+/* Flowing highlights so sections feel connected */
+body::before{
+  content:"";
+  position: fixed; inset: 0; pointer-events: none;
+  background:
+    radial-gradient(1200px 600px at 20% 10%, rgba(255,255,255,0.05), transparent 60%),
+    radial-gradient(900px 500px at 80% 20%, rgba(255,255,255,0.035), transparent 60%),
+    radial-gradient(700px 400px at 50% 90%, rgba(255,255,255,0.03), transparent 60%);
+  mix-blend-mode: overlay;
+}
+
+@media (max-width: 768px) {
+  body { background-attachment: scroll; }
+}
+
+/* ===============  TYPE SCALE  =============== */
+h1, h2, h3, h4 { font-family: var(--font-display), var(--font-body), sans-serif; }
+
+h1 {
+  font-weight: 800;
+  letter-spacing: 0.4px;
+  line-height: 1.1;
+  font-size: clamp(1.75rem, 2.2vw + 1rem, 3rem);
+}
+
+h2 {
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  line-height: 1.2;
+  font-size: clamp(1.375rem, 1.2vw + 0.9rem, 2rem);
+  margin-bottom: 0.25rem;
+}
+
+h3 {
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  line-height: 1.25;
+  font-size: clamp(1.125rem, 0.5vw + 1rem, 1.375rem);
+}
+
+.lead {
+  color: var(--muted);
+  font-size: clamp(1.05rem, 0.4vw + 0.95rem, 1.2rem);
+  line-height: 1.55;
+}
+
+.eyebrow {
+  font-family: var(--font-display), sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-weight: 700;
+  color: var(--muted);
+  font-size: 0.78rem;
+}
+
+.font-display { font-family: var(--font-display), var(--font-body), sans-serif; }
+
+/* ===============  COMPONENT PRIMITIVES  =============== */
+.container { @apply mx-auto max-w-[1100px] px-6; }
+.card { @apply bg-white/5 border border-white/10 rounded-xl2 shadow-soft; }
+.btn  { @apply inline-flex items-center justify-center font-semibold rounded-full px-4 py-3 shadow-soft; }
+.btn-primary { @apply bg-brand text-black hover:opacity-95; }
+.btn-secondary { @apply bg-transparent text-white border border-white/20 hover:bg-white/10; }
+
+:focus-visible { outline: 3px solid rgba(45,212,191,0.5); outline-offset: 2px; }
+
+/* ===============  SECTION TINTS & DIVIDERS  =============== */
+/* Usage: wrap each content block in <section class="section tint-a">… */
+.section {
+  position: relative;
+  padding-top: 3rem;   /* same as py-12 in Tailwind */
+  padding-bottom: 3rem;
+}
+
+/* Keep content above overlays */
+.section > .container { position: relative; z-index: 1; }
+
+/* Feather-light overlay to distinguish sections without killing the bg image */
+.section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: var(--tint-opacity, 0.20);
+  background: var(--tint-bg, transparent);
+  mix-blend-mode: soft-light; /* gentle tint over background image */
+}
+
+/* Optional subtle grid/texture — super faint */
+.section::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: var(--pattern-opacity, 0.06);
+  background:
+    radial-gradient(2000px 1000px at 50% -20%, rgba(255,255,255,0.06), transparent 60%),
+    repeating-linear-gradient(
+      90deg,
+      rgba(255,255,255,0.05) 0px,
+      rgba(255,255,255,0.05) 1px,
+      transparent 1px,
+      transparent 22px
+    );
+  mask-image: linear-gradient(180deg, transparent, black 15%, black 85%, transparent);
+}
+
+/* Three alternating tints (green family) */
+.tint-a {
+  --tint-opacity: 0.22;
+  --pattern-opacity: 0.05;
+  --tint-bg:
+    radial-gradient(900px 600px at 10% -10%, rgba(22, 84, 70, 0.35), transparent 60%),
+    linear-gradient(180deg, rgba(10, 45, 37, 0.28), rgba(10, 45, 37, 0.18));
+}
+
+.tint-b {
+  --tint-opacity: 0.22;
+  --pattern-opacity: 0.05;
+  --tint-bg:
+    radial-gradient(900px 600px at 90% -10%, rgba(14, 82, 72, 0.35), transparent 60%),
+    linear-gradient(180deg, rgba(8, 52, 44, 0.26), rgba(8, 52, 44, 0.16));
+}
+
+.tint-c {
+  --tint-opacity: 0.22;
+  --pattern-opacity: 0.05;
+  --tint-bg:
+    radial-gradient(900px 600px at 50% 120%, rgba(12, 70, 60, 0.35), transparent 60%),
+    linear-gradient(180deg, rgba(7, 45, 39, 0.26), rgba(7, 45, 39, 0.16));
+}
+
+/* Soft divider between sections (nearly invisible, but helps) */
+.divider {
+  height: 1px;
+  background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,0.18), rgba(255,255,255,0));
+  margin: 6px 0;
+  opacity: 0.7;
+}
