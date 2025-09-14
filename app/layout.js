@@ -1,5 +1,6 @@
 import "./globals.css";
 import { Outfit, Inter } from "next/font/google";
+import MouseGlow from "../components/MouseGlow"; // <-- 1. IMPORT IT
 
 const display = Outfit({
   subsets: ["latin"],
@@ -22,7 +23,10 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`${display.variable} ${body.variable}`}>{children}</body>
+      <body className={`${display.variable} ${body.variable}`}>
+        <MouseGlow /> {/* <-- 2. ADD IT HERE */}
+        {children}
+      </body>
     </html>
   );
 }
