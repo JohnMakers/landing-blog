@@ -39,8 +39,8 @@ export default function Products() {
     const rail = slidesRef.current;
     if (!frame || !rail) return;
 
-    let startX = 0;
-    let dx = 0;
+    let startX = 0, startY = 0; // Track X and Y
+    let dx = 0, dy = 0; // Track X and Y delta
     let dragging = false;
     let tapStart = 0;
 
@@ -50,7 +50,9 @@ export default function Products() {
       dragging = true;
       tapStart = Date.now();
       startX = e.clientX;
+      startY = e.clientY; // Capture start Y
       dx = 0;
+      dy = 0; // Reset Y delta
       rail.style.transition = "none";
       rail.setPointerCapture?.(e.pointerId);
       frame.classList.add("cursor-grabbing");
@@ -59,6 +61,7 @@ export default function Products() {
     const onMove = (e) => {
       if (!dragging) return;
       dx = e.clientX - startX;
+      dy = e.clientY - startY; // Calculate Y delta
 
       // Convert drag distance to percentage of slide width
       // Apply a small clamp near edges to reduce huge blank areas while dragging
@@ -75,20 +78,23 @@ export default function Products() {
       dragging = false;
       frame.classList.remove("cursor-grabbing");
 
-      const travel = Math.abs(dx);
+      const travelX = Math.abs(dx);
+      const travelY = Math.abs(dy); // Get total vertical travel
       const w = width();
       const threshold = w * 0.18; // ~18% to change slide
       rail.style.transition = "transform 300ms ease";
 
-      if (travel > threshold) {
+      if (travelX > threshold && travelX > travelY) { // Only swipe if move was mostly horizontal
         dx < 0 ? next() : prev(); // wrap around ends
       } else {
         // Not enough travel -> snap back to current index
         rail.style.transform = `translateX(${-100 * index}%)`;
       }
 
-      // TAP: tiny movement + quick release opens lightbox
-      const shortTap = travel < 8 && Date.now() - tapStart < 250;
+      // TAP LOGIC UPGRADE:
+      // Only counts as a tap if horizontal AND vertical travel were both tiny.
+      // This stops a vertical scroll from being counted as a tap.
+      const shortTap = travelX < 8 && travelY < 8 && Date.now() - tapStart < 250;
       if (shortTap) {
         setLbSrc(imgs[index]);
         setLbOpen(true);
@@ -122,7 +128,7 @@ export default function Products() {
 
   return (
     <>
-      <h2 className="text-2xl md:text-3xl font-bold mb-3">Browse Products</h2>
+      <h2 className="text-2xl md:text-3xl font-bold mb-3">Browse by Type</h2>
 
       {/* Pills: wrap + center */}
       <div
@@ -148,10 +154,11 @@ export default function Products() {
       <div className="mt-4 space-y-4">
         <div className="card p-4">{PRODUCT_DATA[cat].blurb}</div>
 
-        {/* Taller carousel; drag enabled; wrap on ends */}
+        {/* --- WIDTH UPGRADE HERE --- */}
+        {/* Added max-w-3xl mx-auto to narrow and center the component */}
         <div
           ref={containerRef}
-          className="relative card overflow-hidden h-[24rem] md:h-[30rem] select-none cursor-grab"
+          className="relative card overflow-hidden h-[22rem] md:h-[28rem] select-none cursor-grab max-w-3xl mx-auto"
           aria-roledescription="carousel"
           aria-label="Product photos"
         >
@@ -159,16 +166,27 @@ export default function Products() {
             ref={slidesRef}
             className="flex h-full transition-transform duration-300 ease-out"
           >
+            {/* Blurred background slide logic is preserved */}
             {imgs.map((src, i) => (
               <div
                 key={i}
-                className="min-w-full h-full flex items-center justify-center bg-[#0b201a]"
+                className="relative min-w-full h-full overflow-hidden" // Main slide container
               >
+                {/* 1. Blurred Background Image */}
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={src}
+                  alt=""
+                  aria-hidden="true"
+                  className="absolute inset-0 w-full h-full object-cover transform scale-110 blur-xl opacity-50"
+                  draggable={false}
+                />
+                {/* 2. Main Product Image (on top) */}
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={src}
                   alt={`${cat} ${i + 1}`}
-                  className="max-h-full max-w-full object-contain cursor-zoom-in"
+                  className="relative z-10 w-full h-full max-h-full max-w-full object-contain"
                   onClick={() => openLightbox(src)}  // desktop click
                   draggable={false}
                 />
@@ -177,7 +195,7 @@ export default function Products() {
           </div>
 
           {/* Navigation overlay that doesn't block image taps */}
-          <div className="pointer-events-none absolute inset-0 flex items-center justify-between px-2">
+          <div className="pointer-events-none absolute inset-0 z-20 flex items-center justify-between px-2">
             <button
               type="button"
               onClick={prev}
@@ -196,7 +214,7 @@ export default function Products() {
             </button>
           </div>
 
-          <div className="absolute bottom-2 left-0 right-0 flex justify-center gap-2">
+          <div className="absolute bottom-2 left-0 right-0 z-20 flex justify-center gap-2">
             {imgs.map((_, i) => (
               <button
                 key={i}
@@ -209,7 +227,9 @@ export default function Products() {
           </div>
         </div>
 
-        <p className="text-[var(--muted)]">
+        {/* --- WIDTH UPGRADE HERE --- */}
+        {/* Added max-w-3xl mx-auto to align this text with the new carousel width */}
+        <p className="text-[var(--muted)] max-w-3xl mx-auto">
           Ask in store for your desired purchase.
         </p>
       </div>
