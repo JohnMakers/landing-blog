@@ -30,8 +30,8 @@ export default function AgeGate() {
           By entering this site you confirm you are of legal age in your area.
         </p>
         <div className="flex gap-2 justify-center mt-4">
-          <button className="btn btn-primary" onClick={accept}>Yes, enter</button>
-          <button className="btn btn-secondary" onClick={leave}>No</button>
+          <button type="button" className="btn btn-primary" onClick={accept}>Yes, enter</button>
+          <button type="button" className="btn btn-secondary" onClick={leave}>No</button>
         </div>
       </div>
     </div>
