@@ -122,7 +122,7 @@ export default function Products() {
 
   return (
     <>
-      <h2 className="text-2xl font-bold mb-3">Browse by Type</h2>
+      <h2 className="text-2xl md:text-3xl font-bold mb-3">Browse Products</h2>
 
       {/* Pills: wrap + center */}
       <div
@@ -133,6 +133,7 @@ export default function Products() {
         {CATS.map((c) => (
           <button
             key={c}
+            type="button"
             role="tab"
             aria-selected={cat === c}
             onClick={() => setCat(c)}
@@ -178,6 +179,7 @@ export default function Products() {
           {/* Navigation overlay that doesn't block image taps */}
           <div className="pointer-events-none absolute inset-0 flex items-center justify-between px-2">
             <button
+              type="button"
               onClick={prev}
               aria-label="Previous"
               className="pointer-events-auto w-10 h-10 rounded-full bg-black/40 border border-white/30 grid place-items-center"
@@ -185,6 +187,7 @@ export default function Products() {
               ◀
             </button>
             <button
+              type="button"
               onClick={next}
               aria-label="Next"
               className="pointer-events-auto w-10 h-10 rounded-full bg-black/40 border border-white/30 grid place-items-center"
@@ -197,6 +200,7 @@ export default function Products() {
             {imgs.map((_, i) => (
               <button
                 key={i}
+                type="button"
                 onClick={() => goTo(i)}
                 className={`w-3 h-3 rounded-full border ${index === i ? "bg-brand border-transparent" : "bg-white/40 border-white/70"}`}
                 aria-label={`Go to slide ${i + 1}`}
